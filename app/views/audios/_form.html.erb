@@ -1,0 +1,33 @@
+<center>
+  <div class="subcontainer">
+    <%= form_for(@audio) do |f| %>
+        <fieldset>
+          <%= render 'shared/error_messages', object: f.object %>
+          <legend><%=yield(:title)%></legend>
+          <%= f.label :title, style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_field :title, class: "form-control", placeholder: "Title", size:"50"  %>
+          </div>
+          <br/>
+          <%= f.label :author, style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_field :author, class: "form-control", placeholder: "Author", size:"50"  %>
+          </div>
+          <br/>
+          <%= f.label "Featured Image", style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.file_field :image, name: "imagefile", class: "form-control", placeholder: "Featured Image" %>
+          </div>
+          <br/>
+          <%= f.label "Audio File", style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.file_field :url, name: "audiofile", class: "form-control", placeholder: "Audio File" %>
+          </div>
+          <br/>
+          <div class="form-actions">
+            <%= f.submit "Commit", class: "btn btn-primary" %>
+          </div>
+        </fieldset>
+    <% end %>
+  </div>
+</center>

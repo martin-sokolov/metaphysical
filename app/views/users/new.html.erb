@@ -1,0 +1,45 @@
+<% provide(:title, 'Sign up') %>
+<center>
+<br/>
+<%= image_tag("logo1.png", alt: "Metaphysical Fitness") %>
+<div class="subcontainer">
+<%= form_for(@user) do |f| %>
+    <fieldset>
+      <h4>Get Started with a Free Account</h4>
+      <span class="comment">Sign up in 30 seconds. No credit card required. If you</span><br/>
+      <span class="comment">already have a MailChimp account <%= link_to "log in", "#", :data => {:toggle => "modal", :target => "#myLoginModal"} %>.</span><br/><br/>
+      <%= f.label :email, style:"font-weight:normal;" %>
+      <%= render 'shared/error_messages', object: f.object %>
+        <div class="input-group">
+          <%= f.text_field :email, class: "form-control", placeholder:"Email", size:"50"  %>
+        </div>
+      <span class="comment">What's your email address?</span><br/>
+        <br/>
+      <%= f.label :name, style:"font-weight:normal;" %>
+      <div class="input-group">
+        <%= f.text_field :name, class: "form-control", placeholder:"Name", size:"50"  %>
+      </div>
+      <br/>
+      <%= f.label :password, style:"font-weight:normal;" %>
+        <div class="input-group">
+          <%= f.password_field :password, class: "form-control", placeholder:"Password", size:"50" %>
+          <span class="input-group-addon">
+            <input type="checkbox" class="comment" onchange="showPassword(document.getElementById('user_password'));">&nbsp;Show</input>
+            </span>
+        </div>
+        <br/>
+      <%= f.label "Confirm Password", style:"font-weight:normal;" %>
+        <div class="input-group">
+          <%= f.password_field :password_confirmation, class: "form-control", placeholder:"Confirm Password", size:"50" %>
+          <span class="input-group-addon">
+            <input type="checkbox" class="comment" onchange="showPassword(document.getElementById('user_password_confirmation'));">&nbsp;Show</input>
+            </span>
+        </div>
+        <br/>
+        <div class="form-actions">
+        <%= f.submit "Create my account", class: "btn btn-primary" %>
+      </div>
+    </fieldset>
+<% end %>
+</div>
+</center>

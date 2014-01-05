@@ -1,0 +1,17 @@
+<% provide(:title, 'Manage Categories') %>
+<br/><br/><%= link_to "Add Category", new_category_path %>
+<div style="width: 600px;">
+  <legend><%=yield(:title)%></legend>
+    <% @categories.each do |cat| %>
+        <div class="row" style="border-bottom: 1px dotted #333333;padding: 5px 5px 5px 5px;">
+          <div class="col-lg-8"><span style="background-color: <%= cat.color%>;">&nbsp;&nbsp;&nbsp;</span>&nbsp;<%= cat.title %></div>
+          <div class="col-lg-1"><%= link_to "Edit" ,edit_category_path(cat) %>&nbsp;|&nbsp;<%= link_to "Delete" ,categorydelete_path(:id => cat.id), method: "delete" %></div>
+        </div>
+      <% Category.find_all_by_parent(cat.id).each do |cat1| %>
+          <div class="row" style="border-bottom: 1px dotted #333333;padding: 5px 5px 5px 5px;">
+            <div class="col-lg-8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;<%= cat1.title %></div>
+            <div class="col-lg-1"><%= link_to "Edit" ,edit_category_path(cat1) %>&nbsp;|&nbsp;<%= link_to "Delete" ,categorydelete_path(:id => cat1.id), method: "delete" %></div>
+          </div>
+      <% end %>
+    <% end %>
+</div>

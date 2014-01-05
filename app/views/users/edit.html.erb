@@ -1,0 +1,40 @@
+<% provide(:title, "My Account") %>
+<center>
+<div class="subcontainer">
+    <%= form_for(@user, :html => { :class => "bs-example bs-example-form"}) do |f| %>
+    <fieldset>
+      <legend><%=yield(:title)%></legend>
+      <%= render 'shared/error_messages', object: f.object %>
+        <%= f.label :email, style:"font-weight:normal;" %>
+        <div class="input-group">
+          <%= f.text_field :email, class: "form-control", placeholder:"Email", size:"50", disabled: "disabled" %>
+        </div>
+        <br/>
+        <%= f.label :name, style:"font-weight:normal;" %>
+        <div class="input-group">
+          <%= f.text_field :name, class: "form-control", placeholder:"Name", size:"50" %>
+        </div>
+        <br/>
+      <%= f.label :password, style:"font-weight:normal;" %>
+        <div class="input-group">
+          <%= f.password_field :password, class: "form-control", placeholder:"Password", size:"50" %>
+          <span class="input-group-addon">
+            <input type="checkbox" class="comment" onchange="showPassword(document.getElementById('user_password'));">&nbsp;Show</input>
+            </span>
+        </div>
+        <br/>
+      <%= f.label "Confirm Password", style:"font-weight:normal;" %>
+        <div class="input-group">
+          <%= f.password_field :password_confirmation, class: "form-control", placeholder:"Confirm Password", size:"50" %>
+          <span class="input-group-addon">
+            <input type="checkbox" class="comment" onchange="showPassword(document.getElementById('user_password_confirmation'));">&nbsp;Show</input>
+            </span>
+        </div>
+          <br/>
+          <div class="form-actions">
+            <%= f.submit "Update", class: "btn btn-primary" %>
+          </div>
+     </fieldset>
+    <% end %>
+</div>
+</center>

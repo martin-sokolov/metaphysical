@@ -1,0 +1,27 @@
+<%= form_for(:session, url: sessions_path, :html => { :class => "form-horizontal"}) do |f| %>
+<div class="modal fade" id="myLoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><%= image_tag("logo2.png", alt: "Metaphysical Fitness") %>&nbsp;Login</h4>
+      </div>
+      <div class="modal-body">
+      <%= f.label :email, style:"font-weight:normal;" %>
+      <%= f.text_field :email, class: "form-control", placeholder:"Email" %>
+      <%= f.label :password, style:"font-weight:normal;" %>
+      <div class="input-group">
+        <%= f.password_field :password, class: "form-control", placeholder:"Password" %>
+        <span class="input-group-addon">
+        <input type="checkbox" class="comment" onchange="showPassword(document.getElementById('session_password'));">&nbsp;Show</input>
+        </span>
+      </div>
+      <br/>
+      <div class="form-actions">
+        <%= f.submit "Login", class: "btn btn-primary" %>&nbsp;<span class="comment">New user? <%= link_to "Sign up now!", signup_path %></span>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

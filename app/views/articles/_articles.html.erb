@@ -1,0 +1,20 @@
+<% @articles.each do |article|
+  cat = Category.find(article.category_id)
+  if cat.parent != 0
+    cat = Category.find(cat.parent)
+  end
+%>
+    <div style="border-bottom: 4px solid <%=cat.color %>;padding: 10px 0px 10px 0px;">
+      <div class="row">
+        <div class="col-lg-4"><%= link_to image_tag("/uploads/#{article.image}", size:"250x170"), article %></div>
+        <div class="col-lg-8">
+          <h3><%= article.title%>&nbsp;
+            <% if signed_in? && current_user.admin? %>
+                <span style="font-size: 12px;"><%= link_to "Edit", edit_article_path(article) %>&nbsp;|&nbsp;<%= link_to "Delete", articledelete_path(:id => article.id) , method: "delete" %></span>
+            <% end %></h3>
+          <p><%= article.excerpt %></p>
+        </div>
+      </div>
+    </div>
+    <div><p style="float: left;"><span style="color:<%= cat.color %>;"><%= cat.title%></span>&nbsp;by&nbsp;MetaphysicalFitness</p><p style="float: right;">Comments(<%= Comment.find_all_by_article_id(article.id).count() %>)</p><br/></div>
+<% end %>

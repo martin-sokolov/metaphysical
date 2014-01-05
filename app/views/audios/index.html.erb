@@ -1,0 +1,44 @@
+<% provide(:title, 'Audios') %>
+<br/><br/>
+<% if signed_in? && current_user.admin? %>
+    <%= link_to "Add Audio", new_audio_path %>
+<% end %>
+<link rel="stylesheet" href="/audiojs/css/style.css">
+<div id="album-1" class="album" data-title="MetaFit Album" data-artist="Various Artists">
+  <div class="album-playlist">
+    <% cnt = 0 %>
+    <% cnt = 0 %>
+    <% @audios.each do |a| %>
+        <% if signed_in? %>
+        <div class="row" style="padding-top:5px;">
+          <div class="col-lg-1">
+            <%= image_tag("/uploads/#{a.image}", size:"100x90", class:"thumbnail") %>
+          </div>
+          <div style="margin-left:30px;margin-top:10px;width:85%;float: left;">
+            <% if current_user.admin? %>
+                <%= link_to "Delete", audiodelete_path(:id => a.id) , method: "delete" %>
+            <% end %>
+            <div id="track-<%=cnt+=1%>" class="audio-wrapper" data-src="/uploads/<%=a.url%>" data-title="<%=a.title%>" data-artist="<%=a.author%>" data-length="xx:xx" data-download="true">
+            </div>
+          </div>
+        </div>
+        <% else %>
+            <div class="row" style="padding-top:5px;">
+              <div class="col-lg-1">
+                <a href="#" class="video_item" data-target="#myLoginModal" data-toggle="modal"><div style="position: relative;">
+                  <img src="/uploads/<%=a.image%>" width="100" height="90" style="opacity:0.8;" class="thumbnail"/>
+                  <img src="/uploads/lock.png" width="100" height="90" style="position: absolute;top: 0px;left: 0px;"/>
+                </div></a>
+              </div>
+              <div style="margin-left:30px;width:85%;float: left;border-bottom: 1px solid #eeeeee;">
+                <h4><%=a.title%></h4>
+                <p>By&nbsp;<%=a.author%></p>
+                <p>Please <%= link_to "log in", "#", :data => {:toggle => "modal", :target => "#myLoginModal"} %> to subscribe this audio file.</p>
+              </div>
+            </div>
+        <% end %>
+    <% end %>
+  </div>
+</div>
+<script src="/audiojs/js/framework.js"></script>
+<script src="/audiojs/js/audioplayer.js"></script>

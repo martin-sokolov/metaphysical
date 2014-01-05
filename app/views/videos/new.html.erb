@@ -1,0 +1,46 @@
+<% if params[:y] == '0'  %>
+    <% provide(:title, 'Add Youtube Video') %>
+<% else %>
+    <% provide(:title, 'Add Video') %>
+<% end %>
+<center>
+<div class="subcontainer">
+<%= form_for(@video, :multipart => true) do |f| %>
+    <fieldset>
+      <%= render 'shared/error_messages', object: f.object %>
+      <legend><%=yield(:title)%></legend>
+        <% if params[:y] == '0'  %>
+            <%= f.label :title, style:"font-weight:normal;" %>
+            <div class="input-group">
+              <%= f.text_field :title, class: "form-control", placeholder: "Title", size:"50"  %>
+            </div>
+            <br/>
+            <%= f.label :url, style:"font-weight:normal;" %>
+            <div class="input-group">
+              <%= f.text_field :url, class: "form-control", placeholder: "URL", size:"50"  %>
+            </div>
+            <br/>
+        <% else %>
+            <%= f.label :title, style:"font-weight:normal;" %>
+            <div class="input-group">
+              <%= f.text_field :title, class: "form-control", placeholder: "Title", size:"50"  %>
+            </div>
+            <br/>
+            <%= f.label :thumb, style:"font-weight:normal;" %>
+            <div class="input-group">
+              <%= f.file_field :thumb, name: "thumbfile", class: "form-control", placeholder: "Thumbnail"  %>
+            </div>
+            <br/>
+              <%= f.label :url, style:"font-weight:normal;" %>
+              <div class="input-group">
+                <%= f.file_field :url, name: "videofile", class: "form-control", placeholder: "URL"  %>
+              </div>
+              <br/>
+        <% end %>
+        <div class="form-actions">
+          <%= f.submit "Commit", class: "btn btn-primary" %>
+        </div>
+    </fieldset>
+<% end %>
+</div>
+</center>

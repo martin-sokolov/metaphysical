@@ -1,0 +1,73 @@
+<div class="row" style="padding: 30px;">
+  <div class="col-lg-4">
+   <%= form_for(@program, :multipart => true) do |f| %>
+        <fieldset>
+          <%= render 'shared/error_messages', object: f.object %>
+          <legend><%=yield(:title)%></legend>
+          <%= f.label :title, style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_field :title, class: "form-control", placeholder: "Title", size:"50"  %>
+          </div>
+          <br/>
+          <%= f.label :"Featured Image", style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.file_field :image, name: "imagefile", class: "form-control", placeholder: "Featured Image" %>
+          </div>
+          <br/>
+          <%= f.label :excerpt, style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_area :excerpt, class: "form-control", placeholder: "Excerpt", :size => "50x5"  %>
+          </div>
+          <br/>
+          <%= f.label :desc, style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_area :desc, class: "form-control", placeholder: "Description", :size => "50x10"  %>
+          </div>
+          <br/>
+          <%= f.hidden_field :videoids %>
+          <div class="form-actions">
+            <%= f.submit "Commit", class: "btn btn-primary" %>
+          </div>
+        </fieldset>
+    <% end %>
+  </div>
+  <div class="col-lg-8" style="padding-top: 50px;">
+    <div>
+        <p>Select videos that belongs to this Program</p>
+          <div class="row">
+            <% @videos.each do |v| %>
+                <%
+                   tempClass = ""
+                   if @program.videoids != nil && @program.videoids.split(",").include?(v.id.to_s())
+                     tempClass = " thumbselected"
+                   end
+                %>
+            <div class="col-xs-6 col-md-3">
+              <%= link_to image_tag("/uploads/#{v.thumb}", alt:v.title, width:"150", height: "130"), "#", rel:v.id, class:"thumbnail#{tempClass}", onclick:"thumbchecked(this);" %>
+            </div>
+            <% end %>
+          </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function thumbchecked(a)
+  {
+        if(a.className == "thumbnail thumbselected")
+            a.className = "thumbnail";
+        else
+            a.className = "thumbnail thumbselected";
+        setvideoids();
+  }
+  function setvideoids()
+  {
+      var vids = '';
+      var thumbs = document.getElementsByClassName("thumbselected");
+      for(i=0;i<thumbs.length;i++)
+      {
+          vids += thumbs[i].rel + ",";
+      }
+      var h_el = document.getElementById("program_videoids");
+      h_el.value=vids.substr(0,vids.length-1);
+  }
+</script>

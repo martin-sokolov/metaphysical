@@ -1,0 +1,15 @@
+<% provide(:title, 'Life') %>
+<%= render partial: "categories/menu",  locals: { categories: @categories } %>
+<div>
+  <div class="row">
+    <div class="col-lg-8">
+      <% if !@search_for.nil? %>
+      <h2><%=@search_for%></h2>
+      <% end %>
+      <%= render partial: "articles/articles",  locals: { articles: @articles } %>
+    </div>
+    <div class="col-lg-4">
+      <%= render "shared/siderbar" %>
+    </div>
+  </div>
+</div>

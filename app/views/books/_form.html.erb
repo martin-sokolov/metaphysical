@@ -1,0 +1,38 @@
+<center>
+  <div class="subcontainer">
+    <%= form_for(@book) do |f| %>
+        <fieldset>
+          <%= render 'shared/error_messages', object: f.object %>
+          <legend><%=yield(:title)%></legend>
+          <%= f.label :title, style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_field :title, class: "form-control", placeholder: "Title", size:"50"  %>
+          </div>
+          <br/>
+          <%= f.label :author, style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_field :author, class: "form-control", placeholder: "Author", size:"50"  %>
+          </div>
+          <br/>
+          <%= f.label "Featured Image", style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.file_field :image, name: "imagefile", class: "form-control", placeholder: "Featured Image" %>
+          </div>
+          <br/>
+          <%= f.label :price, style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_field :price, class: "form-control", placeholder: "0.00", size:"5" %>
+          </div>
+          <br/>
+          <%= f.label "Description", style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_area :desc, class: "form-control", placeholder: "Description", :size => "50x10"  %>
+          </div>
+          <br/>
+          <div class="form-actions">
+            <%= f.submit "Commit", class: "btn btn-primary" %>
+          </div>
+        </fieldset>
+    <% end %>
+  </div>
+</center>

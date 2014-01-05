@@ -1,0 +1,154 @@
+/*  ==========================================================================
+    Album Teaser
+    ==========================================================================  */
+.album-teaser {
+    background: #ececec;
+}    
+.album-teaser-cover {
+    float: left;
+}
+.album-teaser-cover img {
+    display: block;
+    width: 102px;
+    height: 102px;
+}    
+.album-teaser-info {
+    padding: 12px 10px 0 112px;
+}
+.album-title {
+    font-size: 16px;
+    padding: 0 0 5px 0;
+}
+.album-player {
+    display: table;
+    width: 100%;
+    height: 50px;
+}
+.album-control,
+.album-songs,
+.album-playlist-toggler {
+    display: table-cell;
+    vertical-align: middle;
+}
+.album-control,
+.album-playlist-toggler{
+    width: 45px;
+}
+.album-playlist-toggler{
+    text-align: right;
+}
+
+/*  ==========================================================================
+    Album Playlist
+    ==========================================================================  */
+.audio-player {
+    display: table;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #bbb;
+}
+.audio-player.active {
+    background: #d9d9d9;
+}
+.audio-control {
+    display: table-cell;
+    position: relative;
+    width: 55px;
+    vertical-align: top;
+    padding: 8px 10px 0 10px;
+}
+.audio-title {
+    float: left;
+}
+.audio-time {
+    float: right;
+    padding: 0 0 0 5px;
+}
+.audio-metadata {
+    display: table-cell;
+    padding: 12px 10px 7px 8px;
+}
+.noncustomer .audio-metadata {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 10px;
+}
+.audio-progress {
+    position: relative;
+    width: 100%;
+    height: 15px;
+    overflow: hidden;
+    padding: 5px 0 0 0;
+}
+.audio-progress .progress,
+.audio-progress .progress-bg,
+.audio-progress .loaded {
+    position: absolute;
+    left: 0px;
+    height: 10px;
+    width: 0%;
+}
+.audio-progress .progress {
+    background: #0a3d7d;
+    z-index: 1;
+}
+.audio-progress .progress-bg {
+    background: #bbb;
+    width: 100%;
+}
+.audio-progress .loaded {
+    background: #aaa;
+}
+.audio-download {
+    display: table-cell;
+    width: 45px;
+    vertical-align: top;
+    padding: 8px 10px 0 0;
+}
+
+
+/*  ==========================================================================
+    Icons
+    ==========================================================================  */
+.ic-arrow,
+.ic-play-pause,
+.ic-download,
+.ic-mail { 
+    display: inline-block;
+    background: url('../img/sprite/dest/player-icons@2x.png') no-repeat;
+    background-size: 40px 180px;
+}
+.ic-arrow {
+    width: 40px;
+    height: 40px;
+    background-position: -1px -158px;
+}
+.up .ic-arrow {
+    background-position: -1px -144px;
+}
+.ic-play-pause,
+.ic-mail,
+.ic-download {
+    width: 40px;
+    height: 37px;
+    background-position: -1px -36px;
+}
+.pause .ic-play-pause {
+    background-position: -1px -0px;
+}
+.waiting .ic-play-pause {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url('../img/loader.gif');
+    background-size: initial;
+    background-position: initial;
+    top: 20px;
+    left: 19px;
+}
+.ic-download {
+    background-position: -1px -72px;
+}
+.ic-mail {
+    background-position: -1px -108px;
+}

@@ -1,0 +1,23 @@
+<center>
+  <div class="subcontainer">
+    <%= form_for(@faq) do |f| %>
+        <fieldset>
+          <%= render 'shared/error_messages', object: f.object %>
+          <legend><%=yield(:title)%></legend>
+          <%= f.label "Question", style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_field :quiz, class: "form-control", placeholder: "Question", size:"50"  %>
+          </div>
+          <br/>
+          <%= f.label "Answer", style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_area :answer, class: "form-control", placeholder: "Answer", :size => "50x10"  %>
+          </div>
+          <br/>
+          <div class="form-actions">
+            <%= f.submit "Commit", class: "btn btn-primary" %>
+          </div>
+        </fieldset>
+    <% end %>
+  </div>
+</center>

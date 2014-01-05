@@ -1,0 +1,87 @@
+<% provide(:title, 'Videos') %>
+<% if signed_in? && current_user.admin? %>
+   <br/><br/><%= link_to "Add Youtube Video", new_video_url(:y => '0') %>&nbsp;|&nbsp; <%= link_to "Add Video", new_video_path %>
+<% end %>
+<div class="row">
+  <div class="col-lg-9">
+    <div id="video_container" style="display:block;">
+      <video id="metafitvideo" class="video-js vjs-default-skin" controls width="100%" height="470" data-setup="{}">
+        <source src="/uploads/Teaser2014.mov" type="video/mp4">
+      </video>
+      <div style="position: absolute;left: 15px;top:15px;background-color: #000000;height:50px;width:845px;opacity: 0.6;padding-top:-5px;"><h3 style="color:#ffffff;margin-top: 10px;" id="h3_vtitle">Welcome to Metaphysical Fitness!</h3></div>
+    </div>
+    <div id="youtube_container" style="display: none;">
+
+    </div>
+  </div>
+  <div id="content_1" class="col-lg-3" style="display: block;height: 500px;overflow: hidden;">
+    <% @videos.each do |v| %>
+        <% if !v.pay? %>
+            <div class="youtube_div">
+            <%= link_to image_tag(v.thumb, alt: v.title),"#", class: "video_item", onclick:"playYoutubeVideo('#{v.url}');" %>&nbsp;
+            <%= image_tag(image_path("yt.png"), alt:"Youtube") %>&nbsp;<% if signed_in? && current_user.admin? %><%= link_to "Delete", videodelete_path(:id=>v.id), method: "delete" %><% end %>
+            </div>
+        <% end %>
+        <% end %>
+        </div>
+</div>
+<div class="row">
+  <div class="content_6 content">
+    <div class="images_container">
+      <% @videos.each do |v| %>
+          <% if v.pay? %>
+              <% if signed_in? %>
+                <%= link_to image_tag("/uploads/#{v.thumb}", :size => "120x90", alt: "Tutorial Video", class:"video_item"),"#", onclick: "playVideo('/uploads/#{v.url}','#{v.title}')" %>
+              <% else %>
+                  <a href="#" class="video_item" data-target="#myLoginModal" data-toggle="modal"><div style="float: left;position: relative;">
+                    <img src="/uploads/<%=v.thumb%>" width="120" height="90" style="opacity:0.8;"/>
+                    <img src="/uploads/lock.png" width="120" height="90" style="position: absolute;top: 0px;left: 0px;"/>
+                  </div></a>
+              <% end %>
+              <% if signed_in? && current_user.admin? %><%= link_to "Delete", videodelete_path(:id=>v.id), method: "delete", style: "position:relative;left:-90px;top:-30px" %><% end %>
+          <% end %>
+         <% end %>
+        </div>
+    </div>
+</div>
+<script>
+    var myPlayer = null;
+    videojs("metafitvideo").ready(function(){
+        myPlayer = this;
+
+    });
+    function playVideo(url, title)
+    {
+        $("#h3_vtitle").html(title);
+        $("#video_container").css('display','block');
+        $("#youtube_container").css('display','none');
+        myPlayer.src({ type: "video/mp4", src: url });
+        myPlayer.load();
+        myPlayer.play();
+        var iframe = document.getElementById('youtubeframe');
+       iframe.src="";
+    }
+    function playYoutubeVideo(url)
+    {
+        myPlayer.pause();
+        $("#video_container").css('display','none');
+        $("#youtube_container").css('display','block');
+        $("#youtube_container").html('<iframe id="youtubeframe" width="100%" height="470px" src="'+url+'" frameborder="0" allowfullscreen></iframe>');
+    }
+    (function($){
+        $(window).load(function(){
+            $("#content_1").mCustomScrollbar({
+                scrollButtons:{
+                    enable:true
+                }
+            });
+            $(".content_6").mCustomScrollbar({
+                horizontalScroll:true,
+                advanced:{
+                    autoExpandHorizontalScroll:true
+                }
+            });
+        });
+        $('#metafitvideo').bind('contextmenu',function() { return false; });
+    })(jQuery);
+</script>

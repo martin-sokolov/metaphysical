@@ -1,0 +1,24 @@
+<div class="modal fade" id="pgModel<%= @program.id %>">
+  <div class="modal-dialog" style="width: 800px;">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div class="row">
+          <div class="col-lg-7">
+            <%= image_tag "/uploads/#{@program.image}", alt: "Featured Image", size: "400x300", class: "thumbnail" %>
+          </div>
+          <div class="col-lg-5" style="text-align: left;padding-top:10px;">
+            <h4><%= @program.title %></h4>
+            <p><%= @program.desc %></p>
+            <br/>
+            <% if signed_in? %>
+                <%= link_to "Select Program>", @program , class: "btn btn-primary" %>
+            <% else %>
+                <p>Please <%= link_to "log in", "#", :data => {:toggle => "modal", :target => "#myLoginModal"}, onclick:"$('#pgModel#{@program.id}').modal('hide');" %> to subscribe this program.</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

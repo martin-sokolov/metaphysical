@@ -1,0 +1,40 @@
+<% provide(:title, 'Manifesto') %>
+<br/>
+<br/>
+<div class="row">
+  <div class="col-lg-15" style="text-align: center;">
+    <h1 style="font-family: mffontbold;">
+      <a id="alink1" href="#page1" data-toggle="tab" class="manifestolink_active" onclick="click1(this);">MANIFESTO</a>&nbsp;|&nbsp;<a id="alink2" href="#page2" data-toggle="tab" class="manifestolink" onclick="click2(this);">HALL OF HONOR</a>
+    </h1>
+  </div>
+</div>
+<br/>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="page1">
+    <% if signed_in? && current_user.admin? %>
+        <%= link_to "Edit", edit_manifesto_path(:id => @page1.id ) %><br/>
+    <% end %>
+    <%= @page1.pagecontent.html_safe %>
+  </div>
+  <div class="tab-pane" id="page2">
+    <% if signed_in? && current_user.admin? %>
+        <%= link_to "Edit", edit_manifesto_path(:id => @page2.id ) %><br/>
+    <% end %>
+    <%= @page2.pagecontent.html_safe %>
+  </div>
+</div>
+<script type="text/javascript">
+    function click1(e)
+    {
+        e.className = "manifestolink_active";
+        var e1 = document.getElementById("alink2");
+        e1.className = "manifestolink";
+    }
+    function click2(e)
+    {
+        e.className = "manifestolink_active";
+        var e1 = document.getElementById("alink1");
+        e1.className = "manifestolink";
+    }
+</script>

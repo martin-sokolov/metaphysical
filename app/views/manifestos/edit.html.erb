@@ -1,0 +1,17 @@
+<% provide(:title, 'Edit Page') %>
+<br/>
+<br/>
+<%= form_for(@page) do |f| %>
+    <legend><%=yield(:title)%></legend>
+    <%= f.text_area :pagecontent, class: "form-control", placeholder: "Content", :size => "50x10"  %>
+    <br/>
+    <div class="form-actions">
+      <%= f.submit "Commit", class: "btn btn-primary" %>
+    </div>
+<% end %>
+<script type="text/javascript">
+    var area1;
+    jQuery(document).ready(function(){
+        area1 = new nicEditor({fullPanel : true}).panelInstance('manifesto_pagecontent');
+    });
+</script>

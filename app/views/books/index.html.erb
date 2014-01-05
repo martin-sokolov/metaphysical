@@ -1,0 +1,125 @@
+<% provide(:title, 'Books') %>
+<% if signed_in? && current_user.admin? %>
+    <br/><br/><%= link_to "Add Book", new_book_path %>
+<% end %>
+<br/>
+<br/>
+<script type="text/javascript">
+    $(function() {
+        $('span.stars').stars();
+    });
+
+    $.fn.stars = function() {
+        return $(this).each(function() {
+            $(this).html($('<span />').width(Math.max(0, (Math.min(5, parseFloat($(this).html())))) * 16));
+        });
+    }
+</script>
+<style type="text/css">
+    span.stars, span.stars span {
+        display: inline-block;
+        background: url(/assets/stars.png) 0 -16px repeat-x;
+        width: 80px;
+        height: 16px;
+    }
+
+    span.stars span {
+        background-position: 0 0;
+    }
+    #hide {
+        display:none;
+    }
+    .rating input {
+        position:absolute;
+        filter:alpha(opacity=0);
+        -moz-opacity:0;
+        -khtml-opacity:0;
+        opacity:0;
+        cursor:pointer;
+        width:17px;
+    }
+
+    .rating span {
+        width:24px;
+        height:16px;
+        line-height:16px;
+        padding:1px 22px 1px 0; /* 1px FireFox fix */
+        background:url(/assets/stars1.png) no-repeat -22px 0;
+    }
+
+    /* Change span immediately following the checked radio */
+
+    .rating input:checked + span {
+        background-position:-22px 0;
+    }
+
+    /* Reset all remaining stars back to default background.
+       This supersedes the above due to its ordering. */
+
+    .rating input:checked + span ~ span {
+        background-position: 0 0;
+    }
+
+</style>
+
+<div id="content_book" style="width:90%;height:700px; position: relative;  left: 50px; top:0px;" class="custom_scrollbar">
+    <% @books.each do |b| %>
+      <div class="row">
+        <div class="col-lg-9" style="padding: 3px 3px 3px 3px;">
+          <div class="row" style="margin-left: 10px;">
+             <div class="col-lg-9" style="text-align:left;padding: 3px 3px 3px 3px;">
+               <h3>
+                 <%=b.title.upcase%>&nbsp;
+                 <% if signed_in? && current_user.admin? %>
+                     <span style="font-size: 12px;"><%= link_to "Edit", edit_book_path(b) %>&nbsp;|&nbsp;<%= link_to "Delete", bookdelete_path(:id => b.id) , method: "delete" %></span>
+                 <% end %>
+               </h3>
+               <p>BY&nbsp;<%=b.author.upcase%></p>
+               <p>REVIEWS:&nbsp;
+                 <% if signed_in? %>
+                     <a href="#" rel="popover" data-html="true" data-content='<div class="rating">
+                                 <input type="radio" name="rating" value="0" checked /><span id="hide"></span>
+                                 <input type="radio" name="rating" value="1" onclick="do_rating(1,<%= current_user.id%>,<%= b.id%>);"/><span></span>
+                                 <input type="radio" name="rating" value="2" onclick="do_rating(2,<%= current_user.id%>,<%= b.id%>);"/><span></span>
+                                 <input type="radio" name="rating" value="3" onclick="do_rating(3,<%= current_user.id%>,<%= b.id%>);"/><span></span>
+                                 <input type="radio" name="rating" value="4" onclick="do_rating(4,<%= current_user.id%>,<%= b.id%>);"/><span></span>
+                                 <input type="radio" name="rating" value="5" onclick="do_rating(5,<%= current_user.id%>,<%= b.id%>);"/><span></span>
+                             </div>' data-placement="right"><span class='stars'><%=eval_rates(b.id)%></span></a>&nbsp;<%=count_rates(b.id)%>&nbsp;votes&nbsp;(<%=eval_rates(b.id)%>)
+                 <% else %>
+                     <span class='stars'><%=eval_rates(b.id)%></span>&nbsp;<%=count_rates(b.id)%>&nbsp;votes&nbsp;(<%=eval_rates(b.id)%>)
+                 <% end %>
+               </p>
+             </div>
+            <div class="col-lg-3" style="text-align:right;padding: 3px 3px 3px 3px;">
+                <%=link_to (image_tag "download.png", alt:"download"), "#" %>
+                <h2 style="font-family: mffontbold;">$<%=b.price%></h2>
+            </div>
+          </div>
+          <div class="row" style="margin-left: 10px;">
+            <div class="col-lg-12" style="text-align:left;padding: 3px 3px 3px 3px;">
+                <%= b.desc %>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <%= image_tag("/uploads/#{b.image}", alt:"Book Cover Image", size:"230x300") %>
+        </div>
+      </div>
+    <% end %>
+</div>
+<script>
+    function do_rating(v, uid, bid)
+    {
+        location.href="/rating?value="+v+"&user_id="+uid+"&book_id="+bid
+    }
+    (function($){
+        $(window).load(function(){
+            $('[rel="popover"]').popover();
+            /*$("#content_book").mCustomScrollbar({
+                scrollButtons:{
+                    enable:true
+                }
+            });*/
+        });
+    })(jQuery);
+</script>

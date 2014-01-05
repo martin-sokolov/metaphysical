@@ -1,0 +1,46 @@
+<nav class="navbar navbar-fixed-top navbar-default" role="navigation" style="<%="opacity: 1;" unless current_page?(root_path) %>">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to image_tag("logo.png", alt:"Metaphysical Fitness"), root_path %>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav pull-left">
+        <li <%= "class=active" if current_page?(articles_path) %>><%= link_to "LIFE", articles_path %></li>
+        <li <%= "class=active" if current_page?(videos_path) or current_page?(new_video_path) %>><%= link_to "VIDEOS", videos_path %></li>
+        <li <%= "class=active" if current_page?(audios_path) or current_page?(new_audio_path) %>><%= link_to "AUDIOS", audios_path %></li>
+        <li <%= "class=active" if current_page?(programs_path) or current_page?(new_program_path)%>><%= link_to "PROGRAMS", programs_path %></li>
+        <li <%= "class=active" if current_page?(books_path) %>><%= link_to "E-BOOKS", books_path %></li>
+        <li <%= "class=active" if current_page?(faqs_path) %>><%= link_to "FAQS", faqs_path %></li>
+        <li <%= "class=active" if current_page?(manifestos_path) %>><%= link_to "MANIFESTO", manifestos_path %></li>
+        <li><%= link_to "CONTACT", "#", :data => {:toggle => "modal", :target => "#myContactModal"} %></li>
+      </ul>
+      <ul class="nav navbar-nav pull-right">
+        <% if signed_in? %>
+            <li id="fat-menu" class="dropdown" <%= "class=active" if current_page?(current_user) %>>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <%= gravatar_for current_user, options={size: 20} %>&nbsp;<%= current_user.name %><b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <% if current_user.admin? %>
+                    <li><%= link_to "USERS", users_path %></li>
+                <% end %>
+                <li><%= link_to "MY ACCOUNT", edit_user_path(current_user) %></li>
+                <li><%= link_to "UPGRADE", "#" %></li>
+                <li class="divider"></li>
+                <li><%= link_to "LOGOUT", logout_path, method: "delete" %></li>
+              </ul>
+            </li>
+        <% else %>
+            <li><%= link_to "LOGIN", "#", :data => {:toggle => "modal", :target => "#myLoginModal"}%></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,33 @@
+<center>
+  <div class="subcontainer">
+    <%= form_for(@category) do |f| %>
+        <fieldset>
+          <%= render 'shared/error_messages', object: f.object %>
+          <legend><%=yield(:title)%></legend>
+          <%= f.label :title, style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_field :title, class: "form-control", placeholder: "Title", size:"50"  %>
+          </div>
+          <%= @temp %>
+          <br/>
+          <%= f.label "Parent Category", style:"font-weight:normal;" %><br/>
+          <%= f.select :parent, @parents.collect{|p| [ p.title, p.id ] }, options = {include_blank: 'Root'}, html_options = {:class => "form-control", :style => "width:200px", :onchange => "setCatColor(this);"} %>
+          <br/>
+          <%= f.label "Color on this Category", style:"font-weight:normal;" %>&nbsp;<input type="color" id="category_color" name="category[color]" value="<%= @category.color %>" />
+          <br/>
+          <div class="form-actions">
+            <%= f.submit "Commit", class: "btn btn-primary" %>
+          </div>
+        </fieldset>
+    <% end %>
+  </div>
+</center>
+<script type="text/javascript">
+    function setCatColor(e)
+    {
+        if (e.value != "")
+            $("#category_color").attr('disabled', 'true');
+        else
+            $("#category_color").removeAttr('disabled');
+    }
+</script>

@@ -1,0 +1,62 @@
+<%= form_tag('/contact') do %>
+<div class="modal fade" id="myContactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="width: 500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><%= image_tag("logo2.png", alt: "Metaphysical Fitness") %>&nbsp;Contact Us</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-6" style="text-align: left;">
+            <div class="input-group">
+              <% if signed_in? %>
+                  <input type="text" name="name" class="form-control" placeholder="Full name" value="<%= current_user.name %>" size="30"/>
+              <% else %>
+                  <input type="text" name="name" class="form-control" placeholder="Full name" size="30"/>
+              <% end %>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="input-group">
+              <% if signed_in? %>
+                <input type="text" name="email" class="form-control" placeholder="You must enter a valid email" value="<%= current_user.email %>" size="30"/>
+              <% else %>
+                <input type="text" name="email" class="form-control" placeholder="You must enter a valid email" size="30"/>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="input-group">
+              <input type="text" name="phone" class="form-control" placeholder="Phone number" size="30"/>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <select class="form-control" name="subject">
+              <option value="">Choose a subject</option>
+              <option value="Private Coaching">Private Coaching</option>
+              <option value="Events & Classes">Events & Classes</option>
+              <option value="Webinars">Webinars</option>
+              <option value="Tech Support">Tech Support</option>
+              <option value="Payments">Payments</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <textarea class="form-control" name="message" rows="3" placeholder="Type your message here"></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <input type="hidden" name="prevurl" value="<%= request.original_url%>" />
+          <input type="submit" value="Send" class="btn btn-primary" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

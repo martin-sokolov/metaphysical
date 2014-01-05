@@ -1,0 +1,43 @@
+<center>
+  <div class="subcontainer1">
+    <%= form_for(@article) do |f| %>
+        <fieldset>
+          <%= render 'shared/error_messages', object: f.object %>
+          <legend><%=yield(:title)%></legend>
+          <%= f.label "Category", style:"font-weight:normal;" %><br/>
+          <%= f.select :category_id, @categories.collect{|cat| [ cat.title, cat.id ] }, options = {}, html_options = {:class => "form-control", :style => "width:200px"} %>
+          <br/>
+          <%= f.label :title, style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_field :title, class: "form-control", placeholder: "Title", size:"150"  %>
+          </div>
+          <br/>
+          <%= f.label "Featured Image", style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.file_field :image, name: "imagefile", class: "form-control" %>
+          </div>
+          <br/>
+          <%= f.label :excerpt, style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_area :excerpt, class: "form-control", placeholder: "Content", :size => "150x5"  %>
+          </div>
+          <br/>
+          <%= f.label "Content", style:"font-weight:normal;" %>
+          <div class="input-group">
+            <%= f.text_area :body, class: "form-control", placeholder: "Content", :size => "150x20"  %>
+          </div>
+          <br/>
+          <div class="form-actions">
+            <%= f.hidden_field :backurl, name:"backurl",value: request.referer %>
+            <%= f.submit "Commit", class: "btn btn-primary" %>
+          </div>
+        </fieldset>
+    <% end %>
+  </div>
+</center>
+<script type="text/javascript">
+    var area1;
+    jQuery(document).ready(function(){
+        area1 = new nicEditor({fullPanel : true}).panelInstance('article_body');
+    });
+</script>

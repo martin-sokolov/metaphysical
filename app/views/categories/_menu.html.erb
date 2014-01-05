@@ -1,0 +1,25 @@
+<% if signed_in? && current_user.admin? %>
+    <br/><br/><%= link_to "Manage Categories", categories_path %>&nbsp;|&nbsp;<%= link_to "Add Article", new_article_path %>
+<% end %>
+<br/>
+<br/>
+<div style="margin-left: 0px;">
+  <ul class="category">
+    <% @categories.each do |cat| %>
+        <li style="border-bottom: 4px solid <%= cat.color %>;z-index: 100;"><%= link_to cat.title , cat %>
+          <ul>
+            <% Category.find_all_by_parent(cat.id).each do |cat1| %>
+                <li style="background-color : <%= cat.color %>;z-index: 100;"><%= link_to cat1.title, cat1 %></li>
+            <% end %>
+          </ul>
+        </li>
+    <% end %>
+    <li style="border-bottom: 4px solid #888888;width: 40%;text-align: right;padding: 1px 1px 1px 1px;">
+      <%= form_tag search_articles_path, :method => :get do %>
+          <%= text_field_tag :keyword, params[:keyword], style:"width:300px;line-height:30px;border:1px solid #f0f0f0;" %>
+          <img src="/assets/search.png" alt="search" />
+      <% end %>
+    </li>
+  </ul>
+</div>
+<br/>

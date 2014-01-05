@@ -1,0 +1,34 @@
+<% provide(:title, 'Faqs') %>
+<% if signed_in? && current_user.admin? %>
+    <br/><br/><%= link_to "Add Question", new_faq_path %>
+<% end %>
+<a id="topcontent"></a>
+<div class="row">
+  <div class="col-lg-15" style="text-align: center;"><br/><h1 style="font-family: mffontbold;"><span style="font-size: 40px;">H</span>AVE A <span style="font-size: 40px;">Q</span>UESTION?</h1></div>
+</div>
+<div class="row">
+  <div class="col-lg-9" style="position: relative;left: 150px;top:0px;text-align: left;">
+    <% num = 0 %>
+    <% @faqs.each do |q| %>
+        <p><b>Question <%=num += 1%>&nbsp;<%= link_to q.quiz, "##{q.id}" %></b>&nbsp;&nbsp;
+          <% if signed_in? && current_user.admin? %>
+             <%= link_to "Edit", edit_faq_path(q) %>&nbsp;|&nbsp;<%= link_to "Delete", faqdelete_path(:id => q.id) , method: "delete" %>
+          <% end %>
+        </p>
+    <% end %>
+  </div>
+</div>
+<br/>
+<div class="row">
+  <div class="col-lg-9" style="position: relative;left: 150px;top:0px;text-align: left;">
+    <% num = 0 %>
+    <% @faqs.each do |q| %>
+        <p><b>Question <%=num += 1%>&nbsp;<a id="<%=q.id%>" class="question"><%=q.quiz%></a></b>&nbsp;&nbsp;
+          <% if signed_in? && current_user.admin? %>
+              <%= link_to "Edit", edit_faq_path(q) %>&nbsp;|&nbsp;<%= link_to "Delete", faqdelete_path(:id => q.id) , method: "delete" %>
+          <% end %>
+        </p>
+        <p><%= q.answer %><a href="#topcontent">Goto top</a></p>
+    <% end %>
+  </div>
+</div>

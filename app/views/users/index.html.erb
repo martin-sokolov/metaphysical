@@ -1,0 +1,14 @@
+<% provide(:title, 'All Users') %>
+<div class="row">
+    <div class="col-lg-15">
+    <br/>
+    <legend><%= yield(:title) %></legend>
+    <%= will_paginate(@users, :renderer => ApplicationHelper::PaginationListLinkRenderer) %>
+
+    <ul class="users">
+      <%= render @users %>
+    </ul>
+
+    <%= will_paginate(@users, :renderer => ApplicationHelper::PaginationListLinkRenderer) %>
+    </div>
+</div>
